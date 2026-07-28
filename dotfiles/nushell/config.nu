@@ -39,6 +39,9 @@ $env.config.completions.external = {
 
 source /etc/nixos/dotfiles/nushell/zoxide.nu
 
-alias "nixos-switch" = sudo nixos-rebuild switch --flake /etc/nixos#nix-laptop
+def nixos-switch [] {
+  sudo nixos-rebuild switch --flake $"/etc/nixos#(^hostname | str trim)"
+}
+
 alias "nvim-cheatsheet" = glow /etc/nixos/docs/neovim.md
 alias "nvim-help" = glow /etc/nixos/docs/neovim.md

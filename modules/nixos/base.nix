@@ -5,8 +5,6 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  boot.initrd.luks.devices."luks-9773c620-b863-4613-a479-2bfd6dc43c6d".device = "/dev/disk/by-uuid/9773c620-b863-4613-a479-2bfd6dc43c6d";
-
   networking.hostName = hostname;
   networking.networkmanager = {
     enable = true;

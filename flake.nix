@@ -14,14 +14,13 @@
     let
       system = "x86_64-linux";
       username = "jgertzell";
-      hostname = "nix-laptop";
-    in {
-      nixosConfigurations.${hostname} = nixpkgs.lib.nixosSystem {
+      mkHost = { hostname, hostModule, homeModules ? [ ] }:
+        nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = { inherit inputs username hostname; };
 
         modules = [
-          ./hosts/nix-laptop
+          hostModule
 
           home-manager.nixosModules.home-manager
           {
@@ -29,11 +28,30 @@
               useGlobalPkgs = true;
               useUserPackages = true;
               extraSpecialArgs = { inherit inputs username hostname; };
-              users.${username} = import ./home/jgertzell;
+              users.${username} = {
+                imports = [ ./home/jgertzell ] ++ homeModules;
+              };
               backupFileExtension = "backup";
             };
           }
         ];
+      };
+    in {
+      nixosConfigurations = {
+        nix-laptop = mkHost {
+          hostname = "nix-laptop";
+          hostModule = ./hosts/nix-laptop;
+          homeModules = [ ./home/jgertzell/profiles/desktop.nix ];
+        };
+        nix-desktop = mkHost {
+          hostname = "nix-desktop";
+          hostModule = ./hosts/nix-desktop;
+          homeModules = [ ./home/jgertzell/profiles/desktop.nix ];
+        };
+        nix-mediaserver = mkHost {
+          hostname = "nix-mediaserver";
+          hostModule = ./hosts/nix-mediaserver;
+        };
       };
     };
 }

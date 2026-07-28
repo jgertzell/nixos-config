@@ -1,6 +1,8 @@
 { pkgs, ... }:
 
 {
+  boot.initrd.luks.devices."luks-9773c620-b863-4613-a479-2bfd6dc43c6d".device = "/dev/disk/by-uuid/9773c620-b863-4613-a479-2bfd6dc43c6d";
+
   services.fwupd.enable = true;
   services.power-profiles-daemon.enable = true;
   services.upower = {

@@ -92,7 +92,7 @@ hl.device({
 })
 
 hl.bind(mainMod .. " + F1", hl.dsp.exec_cmd("/home/jgertzell/.local/bin/hyprland-keybinds"))
-hl.bind(mainMod .. " + F8", hl.dsp.exec_cmd("kitty --title nixos-switch nu -ic 'nixos-switch; input \"Press Enter to close...\"'"))
+hl.bind(mainMod .. " + F8", hl.dsp.exec_cmd("kitty --title nixos-switch fish -ic 'nixos-switch; read -P \"Press Enter to close...\"'"))
 hl.bind(mainMod .. " + D", hl.dsp.exec_cmd("rofi -show drun -theme sidebar"))
 hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + SHIFT + RETURN", hl.dsp.exec_cmd(floatingTerminal))
@@ -105,7 +105,7 @@ hl.bind(mainMod .. " + SHIFT + SPACE", function()
     hl.dispatch(hl.dsp.window.center())
 end)
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
-hl.bind(mainMod .. " + P", hl.dsp.exec_cmd("kitty --title monitorswitch nu -ic 'hyprctl reload; systemctl --user restart kanshi.service; kanshictl reload'"))
+hl.bind(mainMod .. " + P", hl.dsp.exec_cmd("kitty --title monitorswitch fish -ic 'hyprctl reload; systemctl --user restart kanshi.service; kanshictl reload'"))
 hl.bind(mainMod .. " + SHIFT + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))
 

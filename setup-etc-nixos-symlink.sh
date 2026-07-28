@@ -42,4 +42,4 @@ ln -s "$repo_dir" "$target"
 
 echo "Moved $target to $backup"
 echo "Linked $target -> $repo_dir"
-echo "Verify with: sudo nixos-rebuild dry-build --flake /etc/nixos#nix-laptop"
+echo "Verify with: sudo nixos-rebuild dry-build --flake /etc/nixos#$(hostname)"

@@ -1,6 +1,6 @@
 [
   { keys = "SUPER + F1"; shortKeys = "S+F1"; action = "Open searchable keybind menu"; shortAction = "rofi menu"; command = "/home/jgertzell/.local/bin/hyprland-keybinds"; }
-  { keys = "SUPER + F8"; shortKeys = "S+F8"; action = "Rebuild and switch NixOS config"; shortAction = "nixos switch"; command = "kitty --title nixos-switch nu -ic 'nixos-switch; input \"Press Enter to close...\"'"; }
+  { keys = "SUPER + F8"; shortKeys = "S+F8"; action = "Rebuild and switch NixOS config"; shortAction = "nixos switch"; command = "kitty --title nixos-switch fish -ic 'nixos-switch; read -P \"Press Enter to close...\"'"; }
   { keys = "SUPER + D"; shortKeys = "S+D"; action = "Open desktop app launcher"; shortAction = "app launcher"; command = "rofi -show drun -theme sidebar"; }
   { keys = "SUPER + Return"; shortKeys = "S+RET"; action = "Open terminal"; shortAction = "terminal"; command = "kitty"; }
   { keys = "SUPER + Shift + Return"; shortKeys = "S+Sh+RET"; action = "Open floating 90x20 terminal"; shortAction = "float term"; command = "kitty --class floating-terminal --title floating-terminal --override initial_window_width=90c --override initial_window_height=20c"; }
