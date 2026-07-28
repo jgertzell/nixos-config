@@ -35,6 +35,7 @@
   console.keyMap = "sv-latin1";
 
   environment.shells = [ pkgs.fish pkgs.nushell pkgs.xonsh ];
+  programs.fish.enable = true;
   virtualisation.docker.enable = true;
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
@@ -55,7 +56,7 @@
     description = username;
     extraGroups = [ "adbusers" "dialout" "docker" "libvirtd" "networkmanager" "plugdev" "wheel" ];
     packages = [ ];
-    shell = pkgs.nushell;
+    shell = pkgs.fish;
   };
 
   nixpkgs.config = {
