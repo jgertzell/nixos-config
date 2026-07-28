@@ -1,0 +1,45 @@
+(include "keybinds.yuck")
+
+(defpoll current_time
+  :interval "30s"
+  :initial "--:--"
+  "date '+%H:%M'")
+
+(defpoll current_date
+  :interval "5m"
+  :initial ""
+  "date '+%b %d, %Y'")
+
+(defwindow hyprland_keybinds [widget_x widget_y widget_width widget_height]
+  :monitor 0
+  :geometry (geometry
+    :x widget_x
+    :y widget_y
+    :width widget_width
+    :height widget_height
+    :anchor "top right")
+  :stacking "bg"
+  :exclusive false
+  :focusable false
+  :namespace "hyprland-keybinds"
+  (keybinds_popup))
+
+(defwidget keybinds_popup []
+  (box :class "keybinds-popup"
+       :orientation "vertical"
+       :space-evenly false
+    (label :class "time" :xalign 0.5 :text current_time)
+    (label :class "date" :xalign 0.5 :text current_date)
+    (label :class "section" :xalign 0.5 :text "HYPRLAND KEYBINDINGS")
+    (box :class "rule")
+    (keybind_rows)))
+
+(defwidget keybind_row [keys action]
+  (box :class "keybind-row"
+       :orientation "horizontal"
+       :space-evenly false
+    (label :class "key" :xalign 0 :text keys)
+    (label :class "action" :xalign 0 :text action)))
+
+(defwidget separator []
+  (box :class "separator"))

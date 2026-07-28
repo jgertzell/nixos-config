@@ -1,0 +1,64 @@
+@import "eww-scale.scss";
+
+* {
+  all: unset;
+  font-family: "JetBrainsMono Nerd Font", monospace;
+  font-size: $base-font-size;
+}
+
+.keybinds-popup {
+  background-color: #282c34;
+  color: #bbc2cf;
+  padding: $popup-padding;
+  min-width: $popup-min-width;
+  min-height: $popup-min-height;
+}
+
+.time {
+  color: #c678dd;
+  font-family: "JetBrainsMono Nerd Font", sans-serif;
+  font-size: $time-font-size;
+  font-weight: bold;
+}
+
+.date {
+  color: #c678dd;
+  font-family: "JetBrainsMono Nerd Font", sans-serif;
+  font-size: $date-font-size;
+  margin-bottom: $section-gap;
+}
+
+.section {
+  color: #98be65;
+  font-family: "JetBrainsMono Nerd Font", sans-serif;
+  font-size: $section-font-size;
+  font-weight: bold;
+  margin-bottom: $small-gap;
+}
+
+.rule {
+  background-color: #bbc2cf;
+  min-height: 1px;
+  margin-bottom: $rule-gap;
+}
+
+.keybind-row {
+  margin-bottom: $row-gap;
+}
+
+.key {
+  color: #bbc2cf;
+  font-size: $row-font-size;
+  min-width: $key-width;
+}
+
+.action {
+  color: #51afef;
+  font-size: $row-font-size;
+}
+
+.separator {
+  background-color: #bbc2cf;
+  min-height: 1px;
+  margin: $small-gap 0;
+}

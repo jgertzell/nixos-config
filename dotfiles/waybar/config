@@ -1,0 +1,44 @@
+{
+  "layer": "top",
+  "position": "bottom",
+  "height": 20,
+  "spacing": 0,
+  "modules-left": ["hyprland/workspaces"],
+  "modules-center": [],
+  "modules-right": ["pulseaudio", "network", "battery", "power-profiles-daemon", "clock", "tray"],
+  "hyprland/workspaces": {
+    "format": "{name}",
+    "on-click": "activate",
+    "all-outputs": true,
+    "sort-by-number": true
+  },
+  "clock": {
+    "format": "{:%a %d %b %H:%M}"
+  },
+  "battery": {
+    "format": "BAT {capacity}%",
+    "format-charging": "CHR {capacity}%",
+    "format-plugged": "AC {capacity}%"
+  },
+  "network": {
+    "format-wifi": "W: {essid}",
+    "format-ethernet": "E: {ipaddr}",
+    "format-disconnected": "no net"
+  },
+  "pulseaudio": {
+    "format": "VOL {volume}%",
+    "format-muted": "MUTE"
+  },
+  "power-profiles-daemon": {
+    "format": "PWR {icon}",
+    "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+    "format-icons": {
+      "performance": "PERF",
+      "balanced": "BAL",
+      "power-saver": "SAVE"
+    }
+  },
+  "tray": {
+    "spacing": 4
+  }
+}

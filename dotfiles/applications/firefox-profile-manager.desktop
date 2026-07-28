@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Firefox
+GenericName=Web Browser
+Exec=firefox --ProfileManager %U
+Icon=firefox
+Terminal=false
+Type=Application
+Categories=Network;WebBrowser;
+MimeType=text/html;text/xml;application/xhtml+xml;application/xml;x-scheme-handler/http;x-scheme-handler/https;
+StartupNotify=true

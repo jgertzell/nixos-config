@@ -1,0 +1,11 @@
+[Added Associations]
+
+[Default Applications]
+application/xhtml+xml=firefox-profile-manager.desktop
+application/xml=firefox-profile-manager.desktop
+text/html=firefox-profile-manager.desktop
+text/xml=firefox-profile-manager.desktop
+x-scheme-handler/http=firefox-profile-manager.desktop
+x-scheme-handler/https=firefox-profile-manager.desktop
+
+[Removed Associations]

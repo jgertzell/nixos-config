@@ -1,0 +1,13 @@
+configuration {
+  disable-history: false;
+  display-drun: "Apps";
+  drun-display-format: "{name}";
+  location: 0;
+  modi: "drun,run,window";
+  scroll-method: 0;
+  show-icons: true;
+  sidebar-mode: true;
+  xoffset: 0;
+  yoffset: 0;
+}
+@theme "sidebar"

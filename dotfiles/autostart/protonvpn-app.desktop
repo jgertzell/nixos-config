@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Proton VPN
+Exec=/home/jgertzell/.nix-profile/bin/protonvpn-app
+Terminal=false
+X-GNOME-Autostart-enabled=true
