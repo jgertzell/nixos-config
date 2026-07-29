@@ -3,3 +3,6 @@ result
 result-*
 *.backup
 *.swp
+.env
+*.env
+!*.env.example

@@ -5,11 +5,6 @@ repo_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 target="/etc/nixos"
 backup="/etc/nixos.backup"
 
-if [[ "$repo_dir" != "/home/jgertzell/system-maintenance" ]]; then
-  echo "This script is expected to run from /home/jgertzell/system-maintenance."
-  echo "Detected: $repo_dir"
-  exit 1
-fi
 
 if [[ "${EUID}" -ne 0 ]]; then
   echo "Run with sudo: sudo $repo_dir/setup-etc-nixos-symlink.sh"

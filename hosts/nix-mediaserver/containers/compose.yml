@@ -1,0 +1,154 @@
+name: mediaserver
+
+x-common-env: &common-env
+  TZ: ${TZ:-Europe/Stockholm}
+  PUID: ${PUID:-1000}
+  PGID: ${PGID:-1001}
+
+x-restart: &restart
+  restart: unless-stopped
+
+services:
+  gluetun:
+    <<: *restart
+    image: qmcgaw/gluetun:latest
+    container_name: gluetun
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    ports:
+      - ${QBITTORRENT_WEBUI_BIND:-0.0.0.0:8080}:8080/tcp
+      - ${GLUETUN_HTTP_CONTROL_PORT:-127.0.0.1:8000}:8000/tcp
+      - ${QBITTORRENT_LISTEN_PORT:-6881}:6881/tcp
+      - ${QBITTORRENT_LISTEN_PORT:-6881}:6881/udp
+    volumes:
+      - /srv/media/appdata/gluetun:/gluetun
+    environment:
+      <<: *common-env
+      VPN_SERVICE_PROVIDER: ${VPN_SERVICE_PROVIDER}
+      VPN_TYPE: ${VPN_TYPE:-wireguard}
+      WIREGUARD_PRIVATE_KEY: ${WIREGUARD_PRIVATE_KEY}
+      WIREGUARD_ADDRESSES: ${WIREGUARD_ADDRESSES}
+      WIREGUARD_PUBLIC_KEY: ${WIREGUARD_PUBLIC_KEY}
+      WIREGUARD_ENDPOINT_IP: ${WIREGUARD_ENDPOINT_IP}
+      WIREGUARD_ENDPOINT_PORT: ${WIREGUARD_ENDPOINT_PORT:-51820}
+      WIREGUARD_ALLOWED_IPS: ${WIREGUARD_ALLOWED_IPS:-0.0.0.0/0}
+      WIREGUARD_PERSISTENT_KEEPALIVE_INTERVAL: ${WIREGUARD_PERSISTENT_KEEPALIVE_INTERVAL:-25s}
+      DNS_ADDRESS: ${WIREGUARD_DNS}
+      FIREWALL: on
+      FIREWALL_OUTBOUND_SUBNETS: ${FIREWALL_OUTBOUND_SUBNETS:-100.64.0.0/10,192.168.0.0/16}
+      DOT: off
+    healthcheck:
+      test: ["CMD", "/gluetun-entrypoint", "healthcheck"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  qbittorrent:
+    <<: *restart
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    network_mode: service:gluetun
+    depends_on:
+      gluetun:
+        condition: service_healthy
+    volumes:
+      - /srv/media/appdata/qbittorrent:/config
+      - /srv/media/torrents:/data/torrents
+      - /srv/media:/mnt/media
+    environment:
+      <<: *common-env
+      WEBUI_PORT: 8080
+      TORRENTING_PORT: ${QBITTORRENT_LISTEN_PORT:-6881}
+
+  jellyfin:
+    <<: *restart
+    image: jellyfin/jellyfin:latest
+    container_name: jellyfin
+    group_add:
+      - "${RENDER_GID:-303}"
+      - "${VIDEO_GID:-44}"
+    devices:
+      - nvidia.com/gpu=all
+    ports:
+      - ${JELLYFIN_BIND:-0.0.0.0:8096}:8096/tcp
+    volumes:
+      - /srv/media/appdata/jellyfin/config:/config
+      - /srv/media/appdata/jellyfin/cache:/cache
+      - /srv/media:/media:ro
+    environment:
+      TZ: ${TZ:-Europe/Stockholm}
+      NVIDIA_VISIBLE_DEVICES: ${NVIDIA_VISIBLE_DEVICES:-all}
+      NVIDIA_DRIVER_CAPABILITIES: ${NVIDIA_DRIVER_CAPABILITIES:-compute,video,utility}
+
+  prowlarr:
+    <<: *restart
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    ports:
+      - 127.0.0.1:9696:9696/tcp
+    volumes:
+      - /srv/media/appdata/prowlarr:/config
+    environment: *common-env
+
+  sonarr:
+    <<: *restart
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    ports:
+      - 127.0.0.1:8989:8989/tcp
+    volumes:
+      - /srv/media/appdata/sonarr:/config
+      - /srv/media/torrents:/data/torrents
+      - /srv/media/library:/data/library
+    environment: *common-env
+
+  radarr:
+    <<: *restart
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    ports:
+      - 127.0.0.1:7878:7878/tcp
+    volumes:
+      - /srv/media/appdata/radarr:/config
+      - /srv/media/torrents:/data/torrents
+      - /srv/media/library:/data/library
+    environment: *common-env
+
+  bazarr:
+    <<: *restart
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    ports:
+      - 127.0.0.1:6767:6767/tcp
+    volumes:
+      - /srv/media/appdata/bazarr:/config
+      - /srv/media/library:/data/library
+    environment: *common-env
+
+  jellyseerr:
+    <<: *restart
+    image: fallenbagel/jellyseerr:latest
+    container_name: jellyseerr
+    ports:
+      - 127.0.0.1:5055:5055/tcp
+    volumes:
+      - /srv/media/appdata/jellyseerr:/app/config
+    environment:
+      LOG_LEVEL: ${JELLYSEERR_LOG_LEVEL:-info}
+      TZ: ${TZ:-Europe/Stockholm}
+
+  unpackerr:
+    <<: *restart
+    image: golift/unpackerr:latest
+    container_name: unpackerr
+    user: "${PUID:-1000}:${PGID:-1001}"
+    volumes:
+      - /srv/media/torrents:/data/torrents
+    environment:
+      TZ: ${TZ:-Europe/Stockholm}
+      UN_SONARR_0_URL: ${UNPACKERR_SONARR_URL:-http://sonarr:8989}
+      UN_SONARR_0_API_KEY: ${UNPACKERR_SONARR_API_KEY:-}
+      UN_RADARR_0_URL: ${UNPACKERR_RADARR_URL:-http://radarr:7878}
+      UN_RADARR_0_API_KEY: ${UNPACKERR_RADARR_API_KEY:-}
