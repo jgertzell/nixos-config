@@ -9,6 +9,7 @@
     ../programs/gtk.nix
     ../programs/hyprland.nix
     ../programs/hyprland-keybinds.nix
+    ../programs/hypridle.nix
     ../programs/kanshi.nix
     ../programs/kitty.nix
     ../programs/protonvpn.nix

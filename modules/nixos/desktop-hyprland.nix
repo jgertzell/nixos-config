@@ -11,6 +11,7 @@
   programs.uwsm.enable = true;
 
   security.polkit.enable = true;
+  security.pam.services.hyprlock = { };
   services.gnome.gnome-keyring.enable = true;
 
   xdg.portal = {
