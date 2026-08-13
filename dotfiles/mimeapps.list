@@ -1,4 +1,5 @@
 [Added Associations]
+text/plain=code.desktop;
 
 [Default Applications]
 application/xhtml+xml=firefox-profile-manager.desktop
@@ -7,5 +8,6 @@ text/html=firefox-profile-manager.desktop
 text/xml=firefox-profile-manager.desktop
 x-scheme-handler/http=firefox-profile-manager.desktop
 x-scheme-handler/https=firefox-profile-manager.desktop
+text/plain=code.desktop
 
 [Removed Associations]
