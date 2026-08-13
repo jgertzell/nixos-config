@@ -57,6 +57,9 @@ in
     kitty
     firefox
     chromium
+    obs-studio
+    moonlight-qt
+    remmina
     libreoffice
     android-file-transfer
     simple-mtpfs
