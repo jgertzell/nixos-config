@@ -4,9 +4,14 @@ profile docked {
   output "HDMI-A-1" mode 2560x1440@59.95Hz position 0,0 scale 1.000000
 }
 
+profile dockedtwo {
+  output "eDP-1" disable
+  output "DP-3" mode 3840x2160@120Hz position 2560,0 scale 1.250000
+}
+
 profile dp-only {
   output "eDP-1" disable
-  output "DP-3" mode 3840x2160@120Hz position 0,0 scale 1.250000
+  output "DP-1" mode 3840x2160@120Hz position 0,0 scale 1.250000
 }
 
 profile laptop {
