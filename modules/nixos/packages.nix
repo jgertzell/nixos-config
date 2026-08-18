@@ -96,6 +96,7 @@ in
     jd-diff-patch
     nodejs
     sqlite
+    duckdb
     docker-compose
     icu
     openssl
@@ -107,5 +108,6 @@ in
     installAzPowerShell
     installDotnetTools
     installArtifactsCredProvider
+    terraform
   ];
 }
