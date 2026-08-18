@@ -109,6 +109,7 @@ hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("pgrep -x hyprlock >/dev/null || hypr
 hl.bind(mainMod .. " + P", hl.dsp.exec_cmd("kitty --title monitorswitch fish -ic 'hyprctl reload; systemctl --user restart kanshi.service; kanshictl reload'"))
 hl.bind(mainMod .. " + SHIFT + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))
+hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen("maximized", "toggle"))
 
 hl.define_submap("execute", "reset", function()
     hl.bind("E", hl.dsp.exec_cmd(fileManager))
