@@ -5,7 +5,7 @@
   "spacing": 0,
   "modules-left": ["hyprland/workspaces"],
   "modules-center": [],
-  "modules-right": ["pulseaudio", "network", "battery", "power-profiles-daemon", "clock", "tray"],
+  "modules-right": ["pulseaudio", "network", "battery", "power-profiles-daemon", "custom/coffee", "clock", "tray"],
   "hyprland/workspaces": {
     "format": "{name}",
     "on-click": "activate",
@@ -37,6 +37,13 @@
       "balanced": "BAL",
       "power-saver": "SAVE"
     }
+  },
+  "custom/coffee": {
+    "exec": "coffee-mode status",
+    "return-type": "json",
+    "interval": 5,
+    "signal": 8,
+    "on-click": "coffee-mode toggle"
   },
   "tray": {
     "spacing": 4
