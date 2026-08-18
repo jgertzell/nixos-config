@@ -4,6 +4,11 @@
   boot.initrd.luks.devices."luks-9773c620-b863-4613-a479-2bfd6dc43c6d".device = "/dev/disk/by-uuid/9773c620-b863-4613-a479-2bfd6dc43c6d";
 
   services.fwupd.enable = true;
+  services.sunshine = {
+    enable = true;
+    autoStart = true;
+    openFirewall = true;
+  };
   services.power-profiles-daemon.enable = true;
   services.upower = {
     enable = true;
@@ -32,6 +37,7 @@
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
+    extraPackages = with pkgs; [ intel-media-driver ];
   };
 
   services.pulseaudio.enable = false;
@@ -46,6 +52,7 @@
   environment.systemPackages = with pkgs; [
     alsa-utils
     pulseaudio
+    pavucontrol
   ];
 
   hardware.bluetooth.enable = true;
