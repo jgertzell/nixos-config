@@ -1,6 +1,7 @@
 $env.config.history.max_size = 1000000
 $env.TZDIR = "/etc/zoneinfo"
 $env.SSL_CERT_DIR = $"/etc/ssl/certs:($env.HOME)/.aspnet/dev-certs/trust"
+$env.LD_LIBRARY_PATH = "/run/current-system/sw/share/nix-ld/lib"
 $env.PATH = ($env.PATH | prepend ($env.HOME | path join ".dotnet" "tools") | uniq)
 $env.config.abbreviations = {
   ll: "ls -l",

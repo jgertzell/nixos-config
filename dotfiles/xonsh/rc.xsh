@@ -1,6 +1,7 @@
 $XONSH_HISTORY_SIZE = (1000000, "commands")
 $TZDIR = "/etc/zoneinfo"
 $SSL_CERT_DIR = f"/etc/ssl/certs:{$HOME}/.aspnet/dev-certs/trust"
+$LD_LIBRARY_PATH = "/run/current-system/sw/share/nix-ld/lib"
 $PATH.insert(0, f"{$HOME}/.dotnet/tools")
 
 def nixos_switch(args, stdin=None):
