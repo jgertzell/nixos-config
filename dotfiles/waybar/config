@@ -39,11 +39,11 @@
     }
   },
   "custom/coffee": {
-    "exec": "coffee-mode status",
+    "exec": "/etc/profiles/per-user/jgertzell/bin/coffee-mode status",
     "return-type": "json",
     "interval": 5,
     "signal": 8,
-    "on-click": "coffee-mode toggle"
+    "on-click": "/etc/profiles/per-user/jgertzell/bin/coffee-mode toggle"
   },
   "tray": {
     "spacing": 4
