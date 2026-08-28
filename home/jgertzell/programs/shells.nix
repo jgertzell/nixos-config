@@ -6,6 +6,7 @@
     xonsh
     fish
     nushell
+    oh-my-posh
   ];
 
   programs.fish.enable = true;
@@ -20,6 +21,8 @@
     config.lib.file.mkOutOfStoreSymlink "/etc/nixos/dotfiles/xonsh/rc.xsh";
   xdg.configFile."powershell/Microsoft.PowerShell_profile.ps1".source =
     config.lib.file.mkOutOfStoreSymlink "/etc/nixos/dotfiles/powershell/Microsoft.PowerShell_profile.ps1";
+  xdg.configFile."powershell/oh-my-posh.json".source =
+    config.lib.file.mkOutOfStoreSymlink "/etc/nixos/dotfiles/powershell/oh-my-posh.json";
 
   programs.fzf = {
     enable = true;

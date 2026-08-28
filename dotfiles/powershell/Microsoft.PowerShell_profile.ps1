@@ -10,3 +10,22 @@ if (Test-Path ~/dev/FO.Ordering.AI/Scripts) {
   #Get-ChildItem -Path ~/dev/FO.Ordering.AI/Scripts -File -Include *.ps1,*.psm1 -Recurse | ForEach-Object { . $_.FullName }
 }
 Set-PSReadLineOption -EditMode Windows
+
+function global:Update-PoshContext {
+  $env:POSH_CONTEXT = ""
+  $privatePromptContext = Join-Path $HOME ".config/powershell/prompt-context.ps1"
+  if (Test-Path -LiteralPath $privatePromptContext -PathType Leaf) {
+    $promptContext = & $privatePromptContext 2>$null | Select-Object -First 1
+    if ($null -ne $promptContext) {
+      $env:POSH_CONTEXT = $promptContext.Trim()
+    }
+  }
+}
+
+Update-PoshContext
+oh-my-posh init pwsh --config (Join-Path $PSScriptRoot "oh-my-posh.json") | Invoke-Expression
+$global:ohMyPoshPrompt = $function:prompt
+function global:prompt {
+  Update-PoshContext
+  & $global:ohMyPoshPrompt
+}
