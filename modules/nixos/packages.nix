@@ -78,6 +78,11 @@ in
     thunar
     thunar-volman
     thunar-archive-plugin
+    file-roller
+    zip
+    unzip
+    p7zip
+    unar
     tumbler
     git
     git-lfs

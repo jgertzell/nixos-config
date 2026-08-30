@@ -14,6 +14,7 @@
     ../programs/kitty.nix
     ../programs/protonvpn.nix
     ../programs/rofi.nix
+    ../programs/thunar.nix
     ../programs/waybar.nix
   ];
 }
