@@ -61,6 +61,8 @@ in
     moonlight-qt
     remmina
     libreoffice
+    freecad
+    prusa-slicer
     android-file-transfer
     simple-mtpfs
     gvfs
