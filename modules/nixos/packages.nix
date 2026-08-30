@@ -61,6 +61,7 @@ in
     moonlight-qt
     remmina
     libreoffice
+    vlc
     freecad
     prusa-slicer
     android-file-transfer
