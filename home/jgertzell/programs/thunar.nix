@@ -22,4 +22,5 @@
       </action>
     </actions>
   '';
+  xdg.configFile."Thunar/uca.xml".force = true;
 }
