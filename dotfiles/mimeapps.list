@@ -2,6 +2,7 @@
 text/plain=code.desktop;
 video/mp4=vlc.desktop;
 model/3mf=org.gnome.FileRoller.desktop;PrusaSlicer.desktop;
+text/csv=code.desktop;
 
 [Default Applications]
 application/xhtml+xml=firefox-profile-manager.desktop
