@@ -63,6 +63,7 @@ in
     libreoffice
     vlc
     freecad
+    openscad
     prusa-slicer
     android-file-transfer
     simple-mtpfs
