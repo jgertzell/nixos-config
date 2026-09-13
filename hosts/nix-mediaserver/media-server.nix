@@ -1,5 +1,17 @@
 { config, pkgs, ... }:
 
+let
+  waydroidInitAndroidTv = pkgs.writeShellScriptBin "waydroid-init-androidtv" ''
+    set -eu
+
+    exec ${pkgs.waydroid}/bin/waydroid init -f \
+      -c https://waydroid-atv.github.io/ota/a16-tv/system \
+      -v https://waydroid-atv.github.io/ota/a16-tv/vendor \
+      -r lineage \
+      -s GAPPS
+  '';
+in
+
 {
   fileSystems."/srv/media" = {
     device = "/dev/disk/by-uuid/25c6b93a-4ebe-4454-9a28-4c406e7823b4";
@@ -40,6 +52,7 @@
     };
   };
   virtualisation.oci-containers.backend = "docker";
+  virtualisation.waydroid.enable = true;
 
   services.xserver.enable = true;
   services.displayManager.defaultSession = "plasma";
@@ -77,6 +90,7 @@
     bluez-tools
     docker-compose
     wayland-utils
+    waydroidInitAndroidTv
   ];
 
   systemd.services.mediaserver-containers = {
