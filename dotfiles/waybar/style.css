@@ -13,6 +13,9 @@ window#waybar {
 }
 
 #workspaces,
+#cpu,
+#temperature,
+#memory,
 #clock,
 #battery,
 #network,
@@ -52,6 +55,9 @@ window#waybar {
 }
 
 #pulseaudio,
+#cpu,
+#temperature,
+#memory,
 #network,
 #battery,
 #power-profiles-daemon,
@@ -72,7 +78,8 @@ window#waybar {
 }
 
 #battery.critical,
-#network.disconnected {
+#network.disconnected,
+#temperature.critical {
   background: #900000;
   color: #ffffff;
 }
