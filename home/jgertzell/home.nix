@@ -19,8 +19,10 @@
     SSL_CERT_DIR = "/etc/ssl/certs:/home/${username}/.aspnet/dev-certs/trust";
     LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [
       pkgs.curl
+      pkgs.glib
       pkgs.icu
       pkgs.krb5
+      pkgs.libsecret
       pkgs.openssl
       pkgs.stdenv.cc.cc
       pkgs.zlib

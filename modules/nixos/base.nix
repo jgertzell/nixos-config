@@ -41,8 +41,10 @@
     enable = true;
     libraries = with pkgs; [
       curl
+      glib
       icu
       krb5
+      libsecret
       openssl
       stdenv.cc.cc
       zlib
