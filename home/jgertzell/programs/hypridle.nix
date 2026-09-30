@@ -60,7 +60,7 @@
       general = {
         lock_cmd = "${pkgs.procps}/bin/pgrep -x hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
         before_sleep_cmd = "${pkgs.procps}/bin/pgrep -x hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
-        on_lock_cmd = "${pkgs.systemd}/bin/systemd-run --user --unit=hyprlock-dpms --on-active=5m ${pkgs.hyprland}/bin/hyprctl dispatch dpms off";
+        on_lock_cmd = "${pkgs.systemd}/bin/systemd-run --user --unit=hyprlock-dpms --on-active=5m ${pkgs.hyprland}/bin/hyprctl dispatch 'hl.dsp.dpms(\"off\")'";
         on_unlock_cmd = "${pkgs.systemd}/bin/systemctl --user stop hyprlock-dpms.timer hyprlock-dpms.service";
       };
 

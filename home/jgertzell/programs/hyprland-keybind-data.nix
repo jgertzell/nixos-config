@@ -15,7 +15,7 @@
   { keys = "SUPER + Shift + Space"; shortKeys = "S+Sh+SPC"; action = "Toggle floating window and resize to 480x270"; shortAction = "float 480x270"; command = ''hl.dsp.window.float({ action = "toggle" }); hl.dsp.window.resize({ x = 480, y = 270 }); hl.dsp.window.center()''; }
   { keys = "SUPER + R"; shortKeys = "S+R"; action = "Open launcher"; shortAction = "launcher"; command = "hyprlauncher"; }
   { keys = "SUPER + L"; shortKeys = "S+L"; action = "Lock screen"; shortAction = "lock"; command = "hyprlock"; }
-  { keys = "SUPER + P"; shortKeys = "S+P"; action = "Reapply display profile"; shortAction = "display profile"; command = "systemctl --user restart kanshi.service"; }
+  { keys = "SUPER + P"; shortKeys = "S+P"; action = "Enable laptop screen and reapply display profile"; shortAction = "display profile"; command = "hyprctl keyword monitor \"eDP-1,preferred,0x0,1\"; systemctl --user restart kanshi.service"; }
   { keys = "SUPER + Shift + P"; shortKeys = "S+Sh+P"; action = "Toggle pseudo tiling"; shortAction = "pseudo tile"; command = "hyprctl dispatch pseudo"; }
   { separator = true; }
   { keys = "SUPER + J"; shortKeys = "S+J"; action = "Toggle split direction"; shortAction = "split toggle"; command = "hyprctl dispatch togglesplit"; }
