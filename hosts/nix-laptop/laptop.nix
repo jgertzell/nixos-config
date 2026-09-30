@@ -5,11 +5,6 @@
 
   services.fwupd.enable = true;
   services.fprintd.enable = true;
-  services.sunshine = {
-    enable = true;
-    autoStart = true;
-    openFirewall = true;
-  };
   services.power-profiles-daemon.enable = true;
   services.upower = {
     enable = true;

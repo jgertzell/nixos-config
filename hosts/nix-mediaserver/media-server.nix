@@ -62,6 +62,12 @@
 
   programs.steam.enable = true;
 
+  services.sunshine = {
+    enable = true;
+    autoStart = true;
+    openFirewall = true;
+  };
+
   services.openssh.enable = true;
   services.tailscale.enable = true;
   services.caddy.enable = true;
