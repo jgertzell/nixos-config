@@ -1,7 +1,24 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 let
-  dotnet = pkgs.dotnetCorePackages.combinePackages (with pkgs.dotnetCorePackages; [
+  dotnetPkgs = import inputs.dotnet-nixpkgs {
+    system = pkgs.stdenv.hostPlatform.system;
+    config.permittedInsecurePackages = [
+      "aspnetcore-runtime-6.0.36"
+      "aspnetcore-runtime-7.0.20"
+      "aspnetcore-runtime-wrapped-6.0.36"
+      "aspnetcore-runtime-wrapped-7.0.20"
+      "dotnet-runtime-6.0.36"
+      "dotnet-runtime-7.0.20"
+      "dotnet-runtime-wrapped-6.0.36"
+      "dotnet-runtime-wrapped-7.0.20"
+      "dotnet-sdk-6.0.428"
+      "dotnet-sdk-7.0.410"
+      "dotnet-sdk-wrapped-6.0.428"
+      "dotnet-sdk-wrapped-7.0.410"
+    ];
+  };
+  dotnet = dotnetPkgs.dotnetCorePackages.combinePackages (with dotnetPkgs.dotnetCorePackages; [
     sdk_6_0
     sdk_7_0
     sdk_8_0
@@ -52,6 +69,11 @@ let
 in
 
 {
+  environment.variables = {
+    DOTNET_ROOT = "${dotnet}/share/dotnet";
+    DOTNET_ROOT_X64 = "${dotnet}/share/dotnet";
+  };
+
   environment.systemPackages = with pkgs; [
     vim
     kitty
@@ -66,7 +88,6 @@ in
     openscad
     prusa-slicer
     android-file-transfer
-    simple-mtpfs
     gvfs
     glib
     libmtp

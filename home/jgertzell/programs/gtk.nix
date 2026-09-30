@@ -4,7 +4,7 @@
   home.packages = with pkgs; [
     adwaita-icon-theme
     bibata-cursors
-    graphite-gtk-theme
+    adw-gtk3
     papirus-icon-theme
   ];
 
@@ -26,7 +26,7 @@
       color-scheme = "prefer-dark";
       cursor-theme = "Bibata-Modern-Classic";
       cursor-size = 24;
-      gtk-theme = "Graphite-Dark";
+      gtk-theme = "adw-gtk3-dark";
       icon-theme = "Papirus-Dark";
     };
   };

@@ -6,8 +6,6 @@ vim.g.loaded_python3_provider = 0
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-vim.env.DOTNET_ROOT = vim.env.DOTNET_ROOT or vim.fn.expand("~/.nix-profile/share/dotnet")
-vim.env.DOTNET_ROOT_X64 = vim.env.DOTNET_ROOT
 vim.env.PATH = vim.fn.expand("~/.dotnet/tools") .. ":" .. vim.fn.expand("~/.nix-profile/bin") .. ":" .. vim.env.PATH
 
 vim.opt.number = true

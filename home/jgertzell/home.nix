@@ -15,8 +15,9 @@
   home.sessionVariables = {
     # .NET falls back to /usr/share/zoneinfo unless TZDIR points at NixOS's timezone database.
     TZDIR = "/etc/zoneinfo";
-    # Aspire exports the per-user development certificate here on Linux.
-    SSL_CERT_DIR = "/etc/ssl/certs:/home/${username}/.aspnet/dev-certs/trust";
+    # Keep public CA roots in the bundle while Aspire adds its localhost certificate here.
+    SSL_CERT_FILE = "/etc/ssl/certs/ca-certificates.crt";
+    SSL_CERT_DIR = "/home/${username}/.aspnet/dev-certs/trust";
     LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [
       pkgs.curl
       pkgs.glib

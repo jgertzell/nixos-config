@@ -1,27 +1,11 @@
 { config, pkgs, ... }:
 
-let
-  dotnet = pkgs.dotnetCorePackages.combinePackages (with pkgs.dotnetCorePackages; [
-    sdk_6_0
-    sdk_7_0
-    sdk_8_0
-    sdk_9_0
-    sdk_10_0
-    aspnetcore_6_0
-    aspnetcore_7_0
-    aspnetcore_8_0
-    aspnetcore_9_0
-    aspnetcore_10_0
-  ]);
-in
-
 {
   home.packages = with pkgs; [
     fd
     gcc
     lazygit
     neovim
-    dotnet
     lua-language-server
     netcoredbg
     ripgrep
