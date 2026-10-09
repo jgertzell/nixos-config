@@ -1,6 +1,14 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
+  home.packages = [
+    pkgs.tesseract
+    (pkgs.writeShellScriptBin "ocr-clipboard" ''
+      set -o pipefail
+      ${pkgs.wl-clipboard}/bin/wl-paste --type image/png | ${pkgs.tesseract}/bin/tesseract stdin stdout "$@"
+    '')
+  ];
+
   imports = [
     ../programs/dunst.nix
     ../programs/eww.nix

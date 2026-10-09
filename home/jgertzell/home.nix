@@ -18,7 +18,9 @@
     # Keep public CA roots in the bundle while Aspire adds its localhost certificate here.
     SSL_CERT_FILE = "/etc/ssl/certs/ca-certificates.crt";
     SSL_CERT_DIR = "/home/${username}/.aspnet/dev-certs/trust";
-    LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [
+    # VS Code's launcher rewrites LD_LIBRARY_PATH; nix-ld consumes this variable
+    # to expose native dependencies to downloaded tools such as C# Dev Kit.
+    NIX_LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [
       pkgs.curl
       pkgs.glib
       pkgs.icu

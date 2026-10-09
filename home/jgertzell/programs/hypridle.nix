@@ -1,5 +1,9 @@
 { pkgs, ... }:
 
+let
+  # Lua DPMS dispatchers need an action table; a string silently toggles power.
+  displayOn = "${pkgs.hyprland}/bin/hyprctl dispatch 'hl.dsp.dpms({action = \"on\"})'";
+in
 {
   programs.hyprlock = {
     enable = true;
@@ -60,14 +64,16 @@
       general = {
         lock_cmd = "${pkgs.procps}/bin/pgrep -x hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
         before_sleep_cmd = "${pkgs.procps}/bin/pgrep -x hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
-        on_lock_cmd = "${pkgs.systemd}/bin/systemd-run --user --unit=hyprlock-dpms --on-active=5m ${pkgs.hyprland}/bin/hyprctl dispatch 'hl.dsp.dpms(\"off\")'";
-        on_unlock_cmd = "${pkgs.systemd}/bin/systemctl --user stop hyprlock-dpms.timer hyprlock-dpms.service";
+        after_sleep_cmd = displayOn;
+        on_lock_cmd = "${pkgs.systemd}/bin/systemd-run --user --unit=hyprlock-dpms --on-active=5m ${pkgs.hyprland}/bin/hyprctl dispatch 'hl.dsp.dpms({action = \"off\"})'";
+        on_unlock_cmd = "${pkgs.systemd}/bin/systemctl --user stop hyprlock-dpms.timer hyprlock-dpms.service; ${displayOn}";
       };
 
       listener = [
         {
           timeout = 300;
           on-timeout = "${pkgs.procps}/bin/pgrep -x hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
+          on-resume = displayOn;
         }
       ];
     };

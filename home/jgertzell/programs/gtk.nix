@@ -9,6 +9,7 @@
   ];
 
   home.pointerCursor = {
+    enable = true;
     gtk.enable = false;
     x11.enable = true;
     package = pkgs.bibata-cursors;

@@ -76,6 +76,7 @@ in
 
   environment.systemPackages = with pkgs; [
     vim
+    btop
     kitty
     firefox
     chromium
