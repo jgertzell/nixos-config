@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 
 let
   # Lua DPMS dispatchers need an action table; a string silently toggles power.
@@ -78,4 +78,8 @@ in
       ];
     };
   };
+
+  # graphical-session.target is shared with sway; only run under Hyprland.
+  systemd.user.services.hypridle.Unit.ConditionEnvironment =
+    lib.mkForce [ "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP=Hyprland" ];
 }

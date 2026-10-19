@@ -42,7 +42,10 @@
         nix-laptop = mkHost {
           hostname = "nix-laptop";
           hostModule = ./hosts/nix-laptop;
-          homeModules = [ ./home/jgertzell/profiles/desktop.nix ];
+          homeModules = [
+            ./home/jgertzell/profiles/desktop.nix
+            ./home/jgertzell/programs/sway.nix
+          ];
         };
         nix-desktop = mkHost {
           hostname = "nix-desktop";

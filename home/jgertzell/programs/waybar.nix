@@ -41,7 +41,8 @@ in
     Unit.Description = "Prevent sleep and automatic screen locking";
     Service = {
       Type = "simple";
-      ExecStartPre = "${pkgs.systemd}/bin/systemctl --user stop hypridle.service";
+      # swayidle.service only exists on hosts with sway, so ignore stop failures.
+      ExecStartPre = "-${pkgs.systemd}/bin/systemctl --user stop hypridle.service swayidle.service";
       ExecStart = ''
         ${pkgs.systemd}/bin/systemd-inhibit \
           --what=idle:sleep:handle-lid-switch \
@@ -50,7 +51,7 @@ in
           --mode=block \
           ${pkgs.coreutils}/bin/sleep infinity
       '';
-      ExecStopPost = "-${pkgs.systemd}/bin/systemctl --user start hypridle.service";
+      ExecStopPost = "-${pkgs.systemd}/bin/systemctl --user start hypridle.service swayidle.service";
     };
   };
 

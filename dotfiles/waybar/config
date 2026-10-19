@@ -3,7 +3,7 @@
   "position": "bottom",
   "height": 20,
   "spacing": 0,
-  "modules-left": ["hyprland/workspaces"],
+  "modules-left": ["hyprland/workspaces", "sway/workspaces", "sway/mode"],
   "modules-center": [],
   "modules-right": ["cpu", "temperature", "memory", "pulseaudio", "network", "battery", "power-profiles-daemon", "custom/coffee", "clock", "tray"],
   "hyprland/workspaces": {
@@ -11,6 +11,10 @@
     "on-click": "activate",
     "all-outputs": true,
     "sort-by-number": true
+  },
+  "sway/workspaces": {
+    "format": "{name}",
+    "all-outputs": true
   },
   "clock": {
     "format": "{:%a %d %b %H:%M}"

@@ -45,6 +45,7 @@
   systemd.user.services.hyprland-enable-edp = {
     Unit = {
       Description = "Enable the laptop panel after external monitor removal";
+      ConditionEnvironment = "XDG_CURRENT_DESKTOP=Hyprland";
       After = [ "graphical-session.target" ];
       PartOf = [ "graphical-session.target" ];
     };
