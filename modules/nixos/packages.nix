@@ -85,6 +85,7 @@ in
     remmina
     libreoffice
     vlc
+    ffmpeg
     freecad
     openscad
     prusa-slicer
