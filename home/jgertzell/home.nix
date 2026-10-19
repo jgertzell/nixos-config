@@ -32,5 +32,5 @@
     ];
   };
 
-  home.packages = [ ];
+  home.packages = [ pkgs.yt-dlp ];
 }
