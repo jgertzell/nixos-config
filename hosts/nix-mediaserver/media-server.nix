@@ -1,17 +1,5 @@
 { config, pkgs, ... }:
 
-let
-  waydroidInitAndroidTv = pkgs.writeShellScriptBin "waydroid-init-androidtv" ''
-    set -eu
-
-    exec ${pkgs.waydroid}/bin/waydroid init -f \
-      -c https://waydroid-atv.github.io/ota/a16-tv/system \
-      -v https://waydroid-atv.github.io/ota/a16-tv/vendor \
-      -r lineage \
-      -s GAPPS
-  '';
-in
-
 {
   fileSystems."/srv/media" = {
     device = "/dev/disk/by-uuid/25c6b93a-4ebe-4454-9a28-4c406e7823b4";
@@ -33,7 +21,12 @@ in
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
+    extraPackages = with pkgs; [
+      nvidia-vaapi-driver
+      libva-vdpau-driver
+    ];
   };
+  environment.sessionVariables.LIBVA_DRIVER_NAME = "nvidia";
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
     modesetting.enable = true;
@@ -52,7 +45,6 @@ in
     };
   };
   virtualisation.oci-containers.backend = "docker";
-  virtualisation.waydroid.enable = true;
 
   services.xserver.enable = true;
   services.displayManager.defaultSession = "plasma";
@@ -78,6 +70,7 @@ in
   services.sunshine = {
     enable = true;
     autoStart = true;
+    capSysAdmin = true;
     openFirewall = true;
   };
 
@@ -89,8 +82,10 @@ in
     bluez
     bluez-tools
     docker-compose
+    (kodi.withPackages (kodiPkgs: with kodiPkgs; [
+      youtube
+    ]))
     wayland-utils
-    waydroidInitAndroidTv
   ];
 
   systemd.services.mediaserver-containers = {
