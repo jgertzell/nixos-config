@@ -31,10 +31,47 @@ let
     aspnetcore_10_0
   ]);
 
-  azureCli = pkgs.azure-cli.withExtensions (with pkgs.azure-cli-extensions; [
+  # Fabric, an Azure CLI dependency, is incompatible with Invoke 3.
+  azurePkgs = pkgs.extend (final: prev: {
+    pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [ (pythonFinal: pythonPrev: {
+      invoke = pythonPrev.invoke.overridePythonAttrs {
+        version = "2.2.0";
+        src = pkgs.fetchPypi {
+          pname = "invoke";
+          version = "2.2.0";
+          hash = "sha256-7my7EBrxqFnH/oTyomTAWQILDLf+NTX5QkMAq1aPa9U=";
+        };
+      };
+    }) ];
+  });
+  azureCli = azurePkgs.azure-cli.withExtensions (with azurePkgs.azure-cli-extensions; [
     application-insights
     log-analytics
   ]);
+
+  # patchelf 0.19.2 crashes while rewriting the Grpc.Tools 2.55.1 binaries.
+  grpcPatchelf = pkgs.patchelf.overrideAttrs {
+    version = "0.18.0";
+    src = pkgs.fetchurl {
+      url = "https://github.com/NixOS/patchelf/releases/download/0.18.0/patchelf-0.18.0.tar.bz2";
+      hash = "sha256-GVKyp4K6V2J5whHulC40F0j9tEmX9wTdU970bNBVRws=";
+    };
+  };
+  grpcPatchNupkgs = pkgs.dotnetCorePackages.patchNupkgs.override { patchelf = grpcPatchelf; };
+  functionsDotnet = pkgs.dotnetCorePackages.overrideScope (final: prev: {
+    fetchNupkg = args:
+      let package = prev.fetchNupkg args;
+      in if args.pname == "Grpc.Tools" && args.version == "2.55.1" then
+        package.overrideAttrs (old: {
+          nativeBuildInputs = map (input:
+            if input == prev.patchNupkgs then grpcPatchNupkgs else input
+          ) old.nativeBuildInputs;
+        })
+      else package;
+  });
+  functionsCoreTools = pkgs.azure-functions-core-tools.override {
+    buildDotnetModule = functionsDotnet.buildDotnetModule;
+  };
 
   installAzPowerShell = pkgs.writeShellScriptBin "install-az-powershell" ''
     exec ${pkgs.powershell}/bin/pwsh -NoLogo -NoProfile -Command '
@@ -123,7 +160,7 @@ in
     powershell
     lazygit
     azureCli
-    azure-functions-core-tools
+    functionsCoreTools
     jq
     jd-diff-patch
     nodejs
