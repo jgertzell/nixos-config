@@ -6,6 +6,8 @@ return {
       "nvim-telescope/telescope.nvim",
     },
     config = function()
+      local tool_bin = vim.fn.stdpath("data") .. "/bin"
+      vim.env.PATH = tool_bin .. ":" .. vim.env.PATH
       require("easy-dotnet").setup({
         lsp = {
           enabled = true,

@@ -49,7 +49,7 @@ require("lazy").setup({
     lazy = false,
     build = ":TSUpdate",
     config = function()
-      local languages = { "bash", "c_sharp", "json", "lua", "markdown", "nix", "toml", "vim", "vimdoc", "yaml" }
+      local languages = { "bash", "c_sharp", "json", "lua", "markdown", "markdown_inline", "nix", "toml", "vim", "vimdoc", "yaml" }
       local filetypes = { "bash", "cs", "help", "json", "lua", "markdown", "nix", "sh", "toml", "vim", "yaml" }
 
       require("nvim-treesitter").install(languages)
@@ -62,6 +62,12 @@ require("lazy").setup({
         end,
       })
     end,
+  },
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    ft = "markdown",
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+    opts = {},
   },
   {
     "neovim/nvim-lspconfig",
