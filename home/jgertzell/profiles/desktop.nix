@@ -20,6 +20,7 @@
     ../programs/hypridle.nix
     ../programs/kanshi.nix
     ../programs/kitty.nix
+    ../programs/maintenance.nix
     ../programs/protonvpn.nix
     ../programs/rofi.nix
     ../programs/thunar.nix

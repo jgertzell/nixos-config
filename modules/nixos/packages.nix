@@ -127,6 +127,7 @@ in
     openscad
     prusa-slicer
     android-file-transfer
+    android-tools
     gvfs
     glib
     libmtp

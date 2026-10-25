@@ -86,5 +86,10 @@
     options = "--delete-older-than 14d";
   };
 
+  programs.nh = {
+    enable = true;
+    flake = "/etc/nixos";
+  };
+
   system.stateVersion = "26.05";
 }
