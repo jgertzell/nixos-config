@@ -165,6 +165,7 @@ in
     jq
     jd-diff-patch
     nodejs
+    python3
     sqlite
     duckdb
     docker-compose
